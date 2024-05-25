@@ -1,0 +1,11 @@
+<article>
+    <p>{{ question }}</p>
+    <form>
+        <ul>
+            <li *ngFor="let answer of answers">
+                <input type="{{ answerType }}" id="{{ answer }}" name="answers">
+                <label for="{{ answer }}">{{ answer }}</label>
+            </li>
+        </ul>
+    </form>
+</article>
