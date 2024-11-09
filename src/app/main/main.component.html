@@ -1,1 +1,8 @@
-<main><app-question /></main>
+<main>
+    @if (isShowQuizSelection()) {
+        <quiz-selection />
+    }
+    @if (isShowQuestion()) {
+        <app-question />
+    }
+</main>

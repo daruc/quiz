@@ -1,0 +1,8 @@
+Select quiz
+<ol>
+    @for(quiz of quizes; track $index) {
+        <li>
+            <a href="#" (click)="setQuiz(quiz.quizId)">{{ quiz.text }}</a>
+        </li>
+    }
+</ol>

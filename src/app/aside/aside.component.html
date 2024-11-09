@@ -1,1 +1,9 @@
-<aside>aside works!</aside>
+<aside>
+    {{ getQuizTitle() }}
+    <div>
+        @for (item of [].constructor(getQuestionsNumber()); track $index) {
+            <a href="#" (click)="loadQuestion($index)">{{ $index + 1 }}</a>
+        }
+    </div>
+    <a href="#" (click)="finishQuiz()">Finish quiz</a>
+</aside>

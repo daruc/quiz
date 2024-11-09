@@ -3,8 +3,8 @@
     <form>
         <ul>
             <li *ngFor="let answer of answers">
-                <input type="{{ answerType }}" id="{{ answer }}" name="answers">
-                <label for="{{ answer }}">{{ answer }}</label>
+                <input type="{{ answerType }}" id="{{ answer.answerId }}" name="answers" (change)="selectAnswer($event)">
+                <label for="{{ answer.answerId }}">{{ answer.text }}</label>
             </li>
         </ul>
     </form>
