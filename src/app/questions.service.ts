@@ -30,9 +30,9 @@ export class QuestionsService {
       question: 'Question 1?',
         questionId: 0,
         answers: [
-          'Answer 1',
+          'Answer 1 (correct)',
           'Answer 2',
-          'Answer 3'
+          'Answer 3 (correct)'
         ],
         correctIndex: [
           0,
@@ -45,7 +45,7 @@ export class QuestionsService {
       question: 'Question 2?',
       questionId: 1,
       answers: [
-        'Answer 2.1',
+        'Answer 2.1 (correct)',
         'Answer 2.2',
         'Answer 2.3'
       ],
@@ -68,7 +68,7 @@ export class QuestionsService {
       questionId: 0,
       answers: [
         'Answer 1',
-        'Answer 2'
+        'Answer 2 (correct)'
       ],
       correctIndex: [
         1

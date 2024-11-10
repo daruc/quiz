@@ -1,9 +1,21 @@
 <aside>
-    {{ getQuizTitle() }}
-    <div>
-        @for (item of [].constructor(getQuestionsNumber()); track $index) {
-            <a href="#" (click)="loadQuestion($index)">{{ $index + 1 }}</a>
-        }
-    </div>
-    <a href="#" (click)="finishQuiz()">Finish quiz</a>
+    @if (isQuizSelected()) {
+        {{ getQuizTitle() }}
+        <div>
+            @for (item of [].constructor(getQuestionsNumber()); track $index) {
+                @if ($index == getCurrentQuestionIndex()) {
+                    <div class="square current" (click)="loadQuestion($index)">
+                        {{ $index + 1 }}
+                    </div>
+                }
+                @else {
+                    <div class="square" (click)="loadQuestion($index)">
+                        {{ $index + 1 }}
+                    </div>
+                }
+            }
+        </div>
+        <a href="#" (click)="finishQuiz()">Finish quiz</a><br>
+        <a href="#" (click)="goToQuizSelection()">Go to quiz selection</a>
+    }
 </aside>
