@@ -20,8 +20,14 @@ aside {
 
 .square.current {
     background-color: yellow;
+    border-color: darkorange;
+    cursor: default;
 }
 
 .square:hover {
     border-color: gray;
+}
+
+.square.current:hover {
+    border-color: darkorange;
 }

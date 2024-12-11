@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { QuestionsService } from '../../questions.service';
+import { QuestionsService } from '../../../questions.service';
+import { RouterLink } from '@angular/router';
 
 interface QuizToShow {
   quizId: number;
@@ -9,7 +10,7 @@ interface QuizToShow {
 @Component({
   selector: 'quiz-selection',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.css'
 })

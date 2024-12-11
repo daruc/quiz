@@ -103,6 +103,10 @@ export class QuestionsService {
     return this.getCurrentQuiz()?.questions[this.currentQuestionIndex];
   }
 
+  public getCurrentQuizIndex(): number {
+    return this.currentQuizIndex;
+  }
+
   public setCurrentQuestion(index: number): void {
     this.currentQuestionIndex = index;
     this.refreshQuestionComponents();

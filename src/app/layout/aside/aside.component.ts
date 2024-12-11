@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { QuestionsService, Quiz } from '../questions.service';
-import { Answer, Answers, AnswersService } from '../answers.service';
+import { QuestionsService, Quiz } from '../../questions.service';
+import { Answer, Answers, AnswersService } from '../../answers.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-aside',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './aside.component.html',
   styleUrl: './aside.component.css'
 })
@@ -66,15 +67,15 @@ export class AsideComponent {
       .reduce((acc, cur) => acc && cur);
   }
 
-  public goToQuizSelection(): void {
-   this.questionsService.setCurrentQuiz(-1); 
-  }
-
   public isQuizSelected(): boolean {
     return this.questionsService.getCurrentQuiz() != undefined;
   }
 
   public getCurrentQuestionIndex(): number {
     return this.questionsService.getCurrentQuestion()!.questionId;
+  }
+
+  public getCurrentQuizIndex(): number {
+    return this.questionsService.getCurrentQuizIndex();
   }
 }

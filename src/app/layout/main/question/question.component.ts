@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { QuestionsService } from '../../questions.service';
-import { Answer, AnswersService } from '../../answers.service';
+import { QuestionsService } from '../../../questions.service';
+import { Answer, AnswersService } from '../../../answers.service';
 
 interface AnswerInComponent {
   answerId: number;
