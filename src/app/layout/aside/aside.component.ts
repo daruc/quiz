@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { QuestionsService, Quiz } from '../../questions.service';
-import { Answer, Answers, AnswersService } from '../../answers.service';
+import { Component, inject, Input } from '@angular/core';
+import { CurrentQuiz, CurrentQuizService, QuizResult } from '../../current-quiz.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -11,71 +10,39 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './aside.component.css'
 })
 export class AsideComponent {
-  private questionsService: QuestionsService;
-  private answersService: AnswersService;
+  @Input() currentQuiz: CurrentQuiz | undefined;
 
-  constructor() {
-    this.questionsService = inject(QuestionsService);
-    this.answersService = inject(AnswersService);
-  }
-
-  public getQuizTitle(): string {
-    const quiz = this.questionsService.getCurrentQuiz();
-    if (quiz) {
-      return quiz.title;
-    }
-    return '';
-  }
-
-  public getQuestionsNumber(): number {
-    const quiz = this.questionsService.getCurrentQuiz();
-    if (quiz) {
-      return quiz.questions.length;
-    }
-    return 0;
-  }
-
-  public loadQuestion(index: number): void {
-    console.log('loadQuestion=' + index);
-    this.questionsService.setCurrentQuestion(index);
-  }
-
-  public finishQuiz(): void {
-    const answers: Answers = this.answersService.getAnswers();
-    const quiz: Quiz = this.questionsService.getCurrentQuiz()!;
-    let result = '';
-    quiz.questions.map(question => {
-      result += question.question
-      const userIndices: number[] = this.getUserAnswers(question.questionId, answers);
-      result += ' ' + this.printCorrectAnswers(question.correctIndex, userIndices);
-      result += '\n';
-    });
-    window.alert(result);
-  }
-
-  private getUserAnswers(questionId: number, answers: Answers): number[] {
-    const questionAnswers: Answer | undefined = answers.answers.find(a => a.questionId === questionId)
-    if (questionAnswers) {
-      return questionAnswers.answerIds;
-    }
-    return [];
-  }
-
-  private printCorrectAnswers(correctIndices: number[], userIndices: number[]): boolean {
-    return correctIndices.length == userIndices.length &&
-       correctIndices.map(correct => userIndices.indexOf(correct) != -1)
-      .reduce((acc, cur) => acc && cur);
+  constructor(private currentQuizService: CurrentQuizService) {
+    currentQuizService = inject(CurrentQuizService);
   }
 
   public isQuizSelected(): boolean {
-    return this.questionsService.getCurrentQuiz() != undefined;
+    return this.currentQuiz !== undefined;
   }
 
-  public getCurrentQuestionIndex(): number {
-    return this.questionsService.getCurrentQuestion()!.questionId;
+  public getQuizTitle(): string {
+    return this.currentQuiz!.title;
   }
 
-  public getCurrentQuizIndex(): number {
-    return this.questionsService.getCurrentQuizIndex();
+  public getQuestionLabelList(): string[] {
+    const labels: string[] = [];
+    for (let i = 1; i <= this.currentQuiz!.currentQuestionList.length; ++i) {
+      labels.push(i.toString());
+    }
+    return labels;
+  }
+
+  public getCurrentQuizUrlId() {
+    return this.currentQuiz!.id + 1;
+  }
+
+  public finishQuiz() {
+    let quizResultMsg = this.currentQuiz!.title + '\n'
+    const quizResult: QuizResult = this.currentQuizService.rateEntire();
+    const questionResultMsg = quizResult.questionResultList.map(questionResult => 
+      (questionResult.id + 1) + ': ' + questionResult.selectedCorrect + '/' + questionResult.maxCorrect
+    ).reduce((acc, cur) => acc + cur + '\n', '');
+    quizResultMsg += questionResultMsg;
+    window.alert(quizResultMsg);
   }
 }

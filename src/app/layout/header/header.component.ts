@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { QuestionsService, Quiz } from '../../questions.service';
+import { Component, inject, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +8,5 @@ import { QuestionsService, Quiz } from '../../questions.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  private questionsService: QuestionsService;
-
-  constructor() {
-    this.questionsService = inject(QuestionsService);
-  }
-
-  public getCurrentQuizTitle(): string {
-    const currentQuiz: Quiz | undefined = this.questionsService.getCurrentQuiz();
-    if (currentQuiz) {
-      return currentQuiz.title;
-    }
-    return 'Select quiz';
-  }
+  @Input() headerText: string = '';
 }

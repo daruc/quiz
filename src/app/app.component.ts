@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { QuestionsService } from './questions.service';
+import { QuizListService } from './quiz-list.service';
 
 @Component({
   selector: 'app-root',

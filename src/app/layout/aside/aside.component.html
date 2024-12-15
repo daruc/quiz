@@ -2,10 +2,10 @@
     @if (isQuizSelected()) {
         {{ getQuizTitle() }}
         <div>
-            @for (item of [].constructor(getQuestionsNumber()); track $index) {
-                <div routerLinkActive="current" class="square" [routerLink]="['/quiz', getCurrentQuizIndex() + 1, $index + 1]">
+            @for (item of getQuestionLabelList(); track $index) {
+                <a routerLinkActive="current" class="square" [routerLink]="['/quiz', getCurrentQuizUrlId(), $index + 1]">
                     {{ $index + 1 }}
-                </div>
+                </a>
             }
         </div>
         <a routerLink="" (click)="finishQuiz()">Finish quiz</a><br>

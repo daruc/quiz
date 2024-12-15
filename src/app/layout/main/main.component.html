@@ -1,8 +1,8 @@
 <main>
     @if (isShowQuizSelection()) {
-        <quiz-selection />
+        <quiz-selection [quizList]="getQuizList()" />
     }
     @if (isShowQuestion()) {
-        <app-question />
+        <app-question [currentQuestion]="getCurrentQuestion()"/>
     }
 </main>

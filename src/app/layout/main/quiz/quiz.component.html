@@ -1,8 +1,8 @@
 Select quiz
 <ol>
-    @for(quiz of quizes; track $index) {
+    @for(quiz of quizList; track $index) {
         <li>
-            <a [routerLink]="['/quiz', $index + 1, 1]">{{ quiz.text }}</a>
+            <a [routerLink]="['/quiz', $index + 1, 1]">{{ quiz }}</a>
         </li>
     }
 </ol>

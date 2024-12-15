@@ -18,12 +18,9 @@ export interface Quiz {
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionsService {
+export class QuizListService {
 
   private quizes: Quiz[];
-  private currentQuizIndex: number;
-  private currentQuestionIndex: number;
-  private changeListeners: OnInit[];
 
   constructor() { 
     let q1: Question = {
@@ -87,46 +84,15 @@ export class QuestionsService {
     this.quizes = [
       quiz1, quiz2
     ]
-    this.currentQuizIndex = -1;
-    this.currentQuestionIndex = 0;
-    this.changeListeners = [];
-  }
 
-  public getCurrentQuiz(): Quiz | undefined {
-    if (this.currentQuizIndex === -1) {
-      return undefined;
-    }
-    return this.quizes[this.currentQuizIndex];
-  }
-
-  public getCurrentQuestion(): Question | undefined {
-    return this.getCurrentQuiz()?.questions[this.currentQuestionIndex];
-  }
-
-  public getCurrentQuizIndex(): number {
-    return this.currentQuizIndex;
-  }
-
-  public setCurrentQuestion(index: number): void {
-    this.currentQuestionIndex = index;
-    this.refreshQuestionComponents();
-  }
-
-  private refreshQuestionComponents(): void {
-    console.log('refreshQuestionComponents');
-    this.changeListeners.forEach(onInit => onInit.ngOnInit());
-  }
-
-  public addChangeListener(onInit: OnInit): void {
-    this.changeListeners.push(onInit);
   }
 
   public getQuizes(): Quiz[] {
     return this.quizes;
   }
 
-  public setCurrentQuiz(quizId: number): void {
-    this.currentQuizIndex = quizId;
-    this.refreshQuestionComponents();
+  public getQuiz(quizId: number): Quiz {
+    return this.quizes[quizId];
   }
+
 }
