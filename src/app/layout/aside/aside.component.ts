@@ -1,6 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { CurrentQuiz, CurrentQuizService, QuizResult } from '../../current-quiz.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Mode } from '../layout.component';
 
 @Component({
   selector: 'app-aside',
@@ -10,6 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './aside.component.css'
 })
 export class AsideComponent {
+  @Input() mode: Mode = Mode.Home;
   @Input() currentQuiz: CurrentQuiz | undefined;
 
   constructor(private currentQuizService: CurrentQuizService) {

@@ -6,6 +6,12 @@ import { FooterComponent } from './footer/footer.component';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentQuiz, CurrentQuizService } from '../current-quiz.service';
 
+export enum Mode {
+  Home = "Home",
+  Quiz = "Quiz",
+  Create = "Create"
+}
+
 @Component({
   selector: 'app-layout',
   standalone: true,
@@ -21,9 +27,23 @@ import { CurrentQuiz, CurrentQuizService } from '../current-quiz.service';
 export class LayoutComponent {
   currentQuestionUrlId: number = -1;
   currentQuiz?: CurrentQuiz;
+  mode: Mode = Mode.Home;
 
   constructor(private route: ActivatedRoute, private currentQuizService: CurrentQuizService) {
     this.route.url.subscribe(url => {
+      if (url.length == 0) {
+        this.mode = Mode.Home;
+      } else {
+        switch (url[0].path) {
+          case 'create':
+            this.mode = Mode.Create;
+            break;
+          case 'quiz':
+            this.mode = Mode.Quiz;
+            break;
+        }
+      }
+
       if (url.length < 3) {
         currentQuizService.stopQuiz();
         this.currentQuestionUrlId = -1;
@@ -40,10 +60,13 @@ export class LayoutComponent {
   }
 
   public getCurrentQuizTitle(): string {
-    const currentQuiz: CurrentQuiz | undefined = this.currentQuizService.getCurrentQuiz();
-    if (currentQuiz) {
-      return currentQuiz.title;
+    switch (this.mode) {
+      case Mode.Home:
+        return 'Select quiz';
+      case Mode.Create:
+        return 'Create quiz';
+      case Mode.Quiz:
+        return this.currentQuizService.getCurrentQuiz()!.title;
     }
-    return 'Select quiz';
   }
 }

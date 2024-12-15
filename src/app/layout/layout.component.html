@@ -1,6 +1,6 @@
 <app-header [headerText]="getCurrentQuizTitle()"/>
 <div id="main-aside-row">
-    <app-main [currentQuestionUrlId]="currentQuestionUrlId" />
-    <app-aside [currentQuiz]="currentQuiz" />
+    <app-main [mode]="mode" [currentQuestionUrlId]="currentQuestionUrlId" />
+    <app-aside [mode]="mode" [currentQuiz]="currentQuiz" />
 </div>
 <app-footer />

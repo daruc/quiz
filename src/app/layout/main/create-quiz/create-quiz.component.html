@@ -1,0 +1,32 @@
+<label for="quiz-title">Quiz title</label>
+<input type="text" id="quiz-title" (value)="newQuiz.title"/>
+<br>
+<label for="random-question-order">Random question order</label>
+<input type="checkbox" id="random-question-order">
+<br>
+@for (question of newQuiz.questions; track question.questionId; let questionIdx = $index) {
+    <div class="question">
+        <label [attr.for]="'question-desc-' + questionIdx">Question description</label>
+        <input type="text" [attr.id]="'question-desc-' + questionIdx">
+        <br>
+        <label [attr.for]="'random-answers-order-' + questionIdx">Random answers order</label>
+        <input type="checkbox" [attr.id]="'random-answers-order-' + questionIdx">
+        <br>
+        <label [attr.for]="'multiple-choice-' + questionIdx">Multiple choice</label>
+        <input type="checkbox" [attr.id]="'multiple-choice-' + questionIdx">
+        <br>
+        <div class="answers">
+            @for (answer of question.answers; track $index) {
+                <div class="answer">
+                    <label [attr.for]="'answer-desc-' + questionIdx + '-' + $index">Answer description</label>
+                    <input type="text" [attr.id]="'answer-desc-' + questionIdx + '-' + $index">
+                    <br>
+                    <label [attr.for]="'correct-answer-' + questionIdx + '-' + $index">Correct answer</label>
+                    <input type="checkbox" [attr.id]="'correct-answer-' + questionIdx + '-' + $index">
+                </div>
+            }
+        </div>
+        <input type="button" (click)="addAnswer(questionIdx)" value="Answer description">
+    </div>
+}
+<input type="button" value="Add question" (click)="addQuestion()">
