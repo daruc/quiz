@@ -5,6 +5,7 @@ import { AsideComponent } from './aside/aside.component';
 import { FooterComponent } from './footer/footer.component';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentQuiz, CurrentQuizService } from '../current-quiz.service';
+import { CreateQuizService } from '../create-quiz.service';
 
 export enum Mode {
   Home = "Home",
@@ -29,17 +30,23 @@ export class LayoutComponent {
   currentQuiz?: CurrentQuiz;
   mode: Mode = Mode.Home;
 
-  constructor(private route: ActivatedRoute, private currentQuizService: CurrentQuizService) {
+  constructor(private route: ActivatedRoute,
+      private currentQuizService: CurrentQuizService,
+      private createQuizService: CreateQuizService) {
+
     this.route.url.subscribe(url => {
       if (url.length == 0) {
         this.mode = Mode.Home;
+        createQuizService.stopEditing();
       } else {
         switch (url[0].path) {
           case 'create':
             this.mode = Mode.Create;
+            createQuizService.startEditing();
             break;
           case 'quiz':
             this.mode = Mode.Quiz;
+            createQuizService.stopEditing();
             break;
         }
       }

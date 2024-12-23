@@ -79,15 +79,15 @@ export class CurrentQuizService {
 
   private createCurrentQuestion(question: Question): CurrentQuestion {
     return {
-      id: question.questionId,
-      str: question.question,
-      type: question.multipleChoose ? "checkbox" : "radio",
+      id: question.id,
+      str: question.description,
+      type: question.multipleChoice ? "checkbox" : "radio",
       currentAnswerList: this.createCurrentAnswerList(question)
     }
   }
 
   private createCurrentAnswerList(question: Question): CurrentAnswer[] {
-    const currentAswerList = question.answers.map((answerStr, index) => this.createCurrentAnswer(index, answerStr));
+    const currentAswerList = question.answers.map((answer, index) => this.createCurrentAnswer(index, answer.description));
     if (question.randomOrder) {
       return this.shuffleArray(currentAswerList);
     }
@@ -108,9 +108,12 @@ export class CurrentQuizService {
 
   public rateEntire(): QuizResult {
     if (this.currentQuiz) {
+      console.log('current quiz', this.currentQuiz);
+
       const quiz: Quiz = this.quizListService.getQuiz(this.currentQuiz.id);
+      console.log('quiz:', quiz);
       const questResultList: QuestionResult[] = this.currentQuiz.currentQuestionList.map(currentQuestion => {
-        const question: Question = quiz.questions.find(question => question.questionId === currentQuestion.id)!;
+        const question: Question = quiz.questions.find(question => question.id === currentQuestion.id)!;
         return {
           id: currentQuestion.id,
           selectedCorrect: this.calculateSelectedCorrect(currentQuestion, question),
@@ -131,7 +134,7 @@ export class CurrentQuizService {
   }
 
   private calculateSelectedCorrect(currentQuestion: CurrentQuestion, question: Question): number {
-    if (question.multipleChoose) {
+    if (question.multipleChoice) {
       return this.calculateSelectedCorrectCheckbox(currentQuestion, question);
     }
     return this.calculateSelectedCorrectRadio(currentQuestion, question);
@@ -139,8 +142,8 @@ export class CurrentQuizService {
 
   private calculateSelectedCorrectCheckbox(currentQuestion: CurrentQuestion, question: Question) {
     let correct = 0;
-    for (var answer of currentQuestion.currentAnswerList) {
-      if (isCheckedCorrectly(answer, question) || this.isUneckedCorrectly(answer, question)) {
+    for (var currentAnswer of currentQuestion.currentAnswerList) {
+      if (this.isCheckedCorrectly(currentAnswer, question)) {
         ++correct;
       } else {
         --correct;
@@ -155,22 +158,19 @@ export class CurrentQuizService {
   private calculateSelectedCorrectRadio(currentQuestion: CurrentQuestion, question: Question) {
     let correct = 0;
     for (var answer of currentQuestion.currentAnswerList) {
-      if (isCheckedCorrectly(answer, question)) {
+      if (this.isCheckedCorrectly(answer, question)) {
         ++correct;
       }
     }
     return correct;
   }
 
-  private isUneckedCorrectly(answer: CurrentAnswer, question: Question): boolean {
-    return !answer.checked && question.correctIndex.find(correctIndex => correctIndex === answer.id) === undefined;
+  private isCheckedCorrectly(currentAnswer: CurrentAnswer, question: Question): boolean {
+    return currentAnswer.checked === question.answers.find(answer => answer.id === currentAnswer.id)!.correct;
   }
 
   private calculateMaxCorrect(question: Question): number {
-    return question.correctIndex.length;
+    return question.answers.reduce((acc, answer) => acc + +answer.correct, 0);
   }
-}
-function isCheckedCorrectly(answer: CurrentAnswer, question: Question) {
-  return answer.checked && question.correctIndex.find(correctIndex => correctIndex === answer.id) !== undefined;
 }
 

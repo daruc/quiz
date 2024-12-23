@@ -2,6 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { CurrentQuiz, CurrentQuizService, QuizResult } from '../../current-quiz.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Mode } from '../layout.component';
+import { CreateQuizService } from '../../create-quiz.service';
 
 @Component({
   selector: 'app-aside',
@@ -14,7 +15,9 @@ export class AsideComponent {
   @Input() mode: Mode = Mode.Home;
   @Input() currentQuiz: CurrentQuiz | undefined;
 
-  constructor(private currentQuizService: CurrentQuizService) {
+  constructor(private currentQuizService: CurrentQuizService,
+      private createQuizService: CreateQuizService) {
+
     currentQuizService = inject(CurrentQuizService);
   }
 
@@ -46,5 +49,9 @@ export class AsideComponent {
     ).reduce((acc, cur) => acc + cur + '\n', '');
     quizResultMsg += questionResultMsg;
     window.alert(quizResultMsg);
+  }
+
+  public saveNewQuiz() {
+    this.createQuizService.saveQuiz();
   }
 }

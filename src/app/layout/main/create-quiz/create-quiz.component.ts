@@ -1,34 +1,50 @@
 import { Component } from '@angular/core';
-import { Question, Quiz } from '../../../quiz-list.service';
+import { FormsModule } from '@angular/forms';
+import { Answer, Question, Quiz } from '../../../quiz-list.service';
+import { CreateQuizService } from '../../../create-quiz.service';
 
 @Component({
   selector: 'create-quiz',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './create-quiz.component.html',
   styleUrl: './create-quiz.component.css'
 })
 export class CreateQuizComponent {
-  newQuiz: Quiz = {
-    title: '',
-    questions: [],
-    randomOrder: false
+  newQuiz: Quiz;
+  
+  constructor(private createQuizService: CreateQuizService) {
+    this.newQuiz = createQuizService.getQuiz();
   }
 
   public addQuestion(): void {
     const questionList = this.newQuiz.questions;
     const newQuestion: Question = {
-      questionId: questionList.length,
-      question: '',
+      id: questionList.length,
+      description: '',
       answers: [],
-      correctIndex: [],
-      multipleChoose: false,
+      multipleChoice: false,
       randomOrder: false
     };
     this.newQuiz.questions.push(newQuestion);
   }
 
+  public removeQuestion(questionId: number) {
+    const questions: Question[] = this.newQuiz.questions;
+    questions.splice(questionId, 1);
+  }
+
   public addAnswer(questionId: number): void {
-    this.newQuiz.questions[questionId].answers.push('');
+    const emptyAnswer: Answer = {
+      id: this.newQuiz.questions[questionId].answers.length,
+      description: '',
+      correct: false
+    }
+    this.newQuiz.questions[questionId].answers.push(emptyAnswer);
+  }
+
+  public removeAnswer(questionId: number, answerId: number): void {
+    const answers: Answer[] = this.newQuiz.questions[questionId].answers;
+    answers.splice(answerId, 1);
   }
 }

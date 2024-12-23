@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 
+export interface Answer {
+  id: number,
+  description: string,
+  correct: boolean
+}
+
 export interface Question {
-  questionId: number;
-  question: string;
-  answers: string[];
-  correctIndex: number[];
-  multipleChoose: boolean;
+  id: number;
+  description: string;
+  answers: Answer[];
+  multipleChoice: boolean;
   randomOrder: boolean;
 }
 
 export interface Quiz {
+  id: number;
   title: string;
   questions: Question[];
   randomOrder: boolean;
@@ -24,35 +30,53 @@ export class QuizListService {
 
   constructor() { 
     let q1: Question = {
-      question: 'Question 1?',
-        questionId: 0,
+        description: 'Question 1?',
+        id: 0,
         answers: [
-          'Answer 1 (correct)',
-          'Answer 2',
-          'Answer 3 (correct)'
+          {
+            id: 0,
+            description: 'Answer 1 (correct)',
+            correct: true
+          },
+          {
+            id: 1,
+            description: 'Answer 2',
+            correct: false
+          },
+          {
+            id: 2,
+            description: 'Answer 3 (correct)',
+            correct: true
+          }
         ],
-        correctIndex: [
-          0,
-          2
-        ],
-        multipleChoose: true,
+        multipleChoice: true,
         randomOrder: true
     }
     let q2: Question = {
-      question: 'Question 2?',
-      questionId: 1,
+      description: 'Question 2?',
+      id: 1,
       answers: [
-        'Answer 2.1 (correct)',
-        'Answer 2.2',
-        'Answer 2.3'
+        {
+          id: 0,
+          description: 'Answer 2.1 (correct)',
+          correct: true
+        },
+        {
+          id: 1,
+          description: 'Answer 2.2',
+          correct: false
+        },
+        {
+          id: 2,
+          description: 'Answer 2.3',
+          correct: false
+        }
       ],
-      correctIndex: [
-        0
-      ],
-      multipleChoose: false,
+      multipleChoice: false,
       randomOrder: false
     }
     let quiz1: Quiz = {
+      id: 0,
       title: 'Quiz 1?',
       questions: [
         q1,
@@ -61,19 +85,25 @@ export class QuizListService {
       randomOrder: false
     }
     let q3: Question = {
-      question: 'Question 2.1?',
-      questionId: 0,
+      description: 'Question 2.1?',
+      id: 0,
       answers: [
-        'Answer 1',
-        'Answer 2 (correct)'
+        {
+          id: 0,
+          description: 'Answer 1',
+          correct: false
+        },
+        {
+          id: 1,
+          description: 'Answer 2 (correct)',
+          correct: true
+        }
       ],
-      correctIndex: [
-        1
-      ],
-      multipleChoose: false,
+      multipleChoice: false,
       randomOrder: false
     }
     let quiz2: Quiz = {
+      id: 1,
       title: 'Quiz 2?',
       questions: [
         q3
@@ -93,6 +123,10 @@ export class QuizListService {
 
   public getQuiz(quizId: number): Quiz {
     return this.quizes[quizId];
+  }
+
+  public saveQuiz(quiz: Quiz): void {
+    this.quizes.push(quiz);
   }
 
 }

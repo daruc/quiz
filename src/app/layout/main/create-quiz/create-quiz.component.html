@@ -1,32 +1,36 @@
 <label for="quiz-title">Quiz title</label>
-<input type="text" id="quiz-title" (value)="newQuiz.title"/>
+<input type="text" id="quiz-title" [(ngModel)]="newQuiz.title"/>
 <br>
 <label for="random-question-order">Random question order</label>
-<input type="checkbox" id="random-question-order">
+<input type="checkbox" id="random-question-order" [(ngModel)]="newQuiz.randomOrder">
 <br>
-@for (question of newQuiz.questions; track question.questionId; let questionIdx = $index) {
+@for (question of newQuiz.questions; track question.id; let questionIdx = $index) {
     <div class="question">
         <label [attr.for]="'question-desc-' + questionIdx">Question description</label>
-        <input type="text" [attr.id]="'question-desc-' + questionIdx">
+        <input type="text" [attr.id]="'question-desc-' + questionIdx" [(ngModel)]="question.description">
         <br>
         <label [attr.for]="'random-answers-order-' + questionIdx">Random answers order</label>
-        <input type="checkbox" [attr.id]="'random-answers-order-' + questionIdx">
+        <input type="checkbox" [attr.id]="'random-answers-order-' + questionIdx" [(ngModel)]="question.randomOrder">
         <br>
         <label [attr.for]="'multiple-choice-' + questionIdx">Multiple choice</label>
-        <input type="checkbox" [attr.id]="'multiple-choice-' + questionIdx">
+        <input type="checkbox" [attr.id]="'multiple-choice-' + questionIdx" [(ngModel)]="question.multipleChoice">
         <br>
         <div class="answers">
             @for (answer of question.answers; track $index) {
                 <div class="answer">
                     <label [attr.for]="'answer-desc-' + questionIdx + '-' + $index">Answer description</label>
-                    <input type="text" [attr.id]="'answer-desc-' + questionIdx + '-' + $index">
+                    <input type="text" [attr.id]="'answer-desc-' + questionIdx + '-' + $index" [(ngModel)]="question.answers[$index].description">
                     <br>
                     <label [attr.for]="'correct-answer-' + questionIdx + '-' + $index">Correct answer</label>
-                    <input type="checkbox" [attr.id]="'correct-answer-' + questionIdx + '-' + $index">
+                    <input type="checkbox" [attr.id]="'correct-answer-' + questionIdx + '-' + $index" [(ngModel)]="answer.correct">
+                    <br>
+                    <input type="button" (click)="removeAnswer(questionIdx, $index)" value="Remove answer">
                 </div>
             }
         </div>
-        <input type="button" (click)="addAnswer(questionIdx)" value="Answer description">
+        <input type="button" (click)="addAnswer(questionIdx)" value="Add answer">
+        <br>
+        <input type="button" (click)="removeQuestion(questionIdx)" value="Remove question">
     </div>
 }
 <input type="button" value="Add question" (click)="addQuestion()">
