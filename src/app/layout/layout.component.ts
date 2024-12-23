@@ -44,6 +44,11 @@ export class LayoutComponent {
             this.mode = Mode.Create;
             createQuizService.startEditing();
             break;
+          case 'edit':
+            this.mode = Mode.Create;
+            const quizIdToEdit: number = Number(url[1]) - 1;
+            createQuizService.startEditing(quizIdToEdit);
+            break;
           case 'quiz':
             this.mode = Mode.Quiz;
             createQuizService.stopEditing();

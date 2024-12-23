@@ -125,8 +125,16 @@ export class QuizListService {
     return this.quizes[quizId];
   }
 
-  public saveQuiz(quiz: Quiz): void {
-    this.quizes.push(quiz);
+  public saveQuiz(newQuiz: Quiz): void {
+    if (newQuiz.id >= this.quizes.length) {
+      this.quizes.push(newQuiz);
+    }
+    const indexToReplace: number = this.quizes.findIndex(quiz => quiz.id === newQuiz.id);
+    this.quizes.splice(indexToReplace, 1, newQuiz);
   }
 
+  public removeQuiz(quizId: number): void {
+    const indexToRemove: number = this.quizes.findIndex(quiz => quiz.id === quizId);
+    this.quizes.splice(indexToRemove, 1);
+  }
 }
