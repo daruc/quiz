@@ -1,0 +1,23 @@
+<aside>
+    @switch (mode) {
+        @case ("Home") {
+            Nothing has been started yet.
+        }
+        @case ("Quiz") {
+            {{ getQuizTitle() }}
+            <div>
+                @for (item of getQuestionLabelList(); track $index) {
+                    <a routerLinkActive="current" class="square" [routerLink]="['/quiz', getCurrentQuizUrlId(), $index + 1]">
+                        {{ $index + 1 }}
+                    </a>
+                }
+            </div>
+            <a routerLink="" (click)="finishQuiz()">Finish quiz</a><br>
+            <a routerLink="">Go to quiz selection</a>
+        }
+        @case ("Create") {
+            <a routerLink="" (click)="saveNewQuiz()">Save and close</a><br>
+            <a routerLink="">Close without saving</a>
+        }
+    }
+</aside>

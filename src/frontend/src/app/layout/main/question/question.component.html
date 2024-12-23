@@ -1,0 +1,14 @@
+<article>
+    <p>{{ currentQuestion?.str }}</p>
+    <form>
+        <ul>
+            @for(answer of currentQuestion?.currentAnswerList; track $index) {
+                <li>
+                    <input [type]="currentQuestion?.type" id="{{ answer.id }}" name="answers" (change)="selectAnswer($event)">
+                    <label for="{{ answer.id }}">{{ answer.str }}</label>
+                </li>
+            }
+
+        </ul>
+    </form>
+</article>

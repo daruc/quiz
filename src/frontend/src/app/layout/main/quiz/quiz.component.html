@@ -1,0 +1,12 @@
+<a routerLink="create">Create a new quiz</a>
+<hr>
+Select quiz
+<ol>
+    @for(quiz of quizList; track $index) {
+        <li>
+            <a [routerLink]="['/quiz', $index + 1, 1]">{{ quiz }}</a>
+            <a [routerLink]="['/edit', $index + 1]">[Edit]</a>
+            <a routerLink="" (click)="removeQuiz($index)">[Remove]</a>
+        </li>
+    }
+</ol>
