@@ -25,10 +25,6 @@ export class AsideComponent {
     return this.currentQuiz !== undefined;
   }
 
-  public getQuizTitle(): string {
-    return this.currentQuiz!.title;
-  }
-
   public getQuestionLabelList(): string[] {
     const labels: string[] = [];
     for (let i = 1; i <= this.currentQuiz!.currentQuestionList.length; ++i) {

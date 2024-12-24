@@ -27,6 +27,8 @@ export class CreateQuizComponent {
       randomOrder: false
     };
     this.newQuiz.questions.push(newQuestion);
+    this.addAnswer(newQuestion.id);
+    this.addAnswer(newQuestion.id);
   }
 
   public removeQuestion(questionId: number) {

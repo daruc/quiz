@@ -1,7 +1,7 @@
 aside {
-    background-color: rgb(190, 159, 216);
     float: right;
     width: 20%;
+    height: 100%;
 }
 
 .square {
@@ -30,4 +30,11 @@ aside {
 
 .square.current:hover {
     border-color: darkorange;
+}
+
+.aside-card {
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }

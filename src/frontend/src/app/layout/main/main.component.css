@@ -1,5 +1,9 @@
 main {
-    background-color: rgb(119, 151, 182);
+    background-color: rgb(255, 255, 255);
     float: left;
     width: 80%;
+}
+
+#main-body {
+    margin: 20px;
 }

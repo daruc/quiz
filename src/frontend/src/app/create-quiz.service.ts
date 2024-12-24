@@ -25,8 +25,27 @@ export class CreateQuizService {
       this.newQuiz = {
         id: this.quizListService.getQuizes().length,
         title: '',
-        questions: [],
         randomOrder: false,
+        questions: [
+          {
+            id: 0,
+            description: '',
+            randomOrder: false,
+            multipleChoice: false,
+            answers: [
+              {
+                id: 0,
+                description: '',
+                correct: false
+              },
+              {
+                id: 1,
+                description: '',
+                correct: false
+              }
+            ]
+          }
+        ],
       }
     }
   }
