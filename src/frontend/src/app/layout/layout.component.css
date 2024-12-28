@@ -1,9 +1,0 @@
-#main-aside-row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-#main-aside-row {
-    background-color: white; 
-}

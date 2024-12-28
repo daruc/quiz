@@ -4,34 +4,6 @@ aside {
     height: 100%;
 }
 
-.square {
-    width: 2em;
-    height: 2em;
-    line-height: 2em;
-    margin: 0.5em;
-    text-align: center;
-    background-color: white;
-    border-width: 3px;
-    border-color: black;
-    border-style: solid;
-    display: inline-block;
-    cursor: pointer;   
-}
-
-.square.current {
-    background-color: yellow;
-    border-color: darkorange;
-    cursor: default;
-}
-
-.square:hover {
-    border-color: gray;
-}
-
-.square.current:hover {
-    border-color: darkorange;
-}
-
 .aside-card {
     margin-left: 0px;
     margin-top: 20px;

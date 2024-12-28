@@ -1,12 +1,13 @@
 import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { QuizListService } from '../../../quiz-list.service';
+import { MainComponent } from "../main.component";
 
 
 @Component({
   selector: 'quiz-selection',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, MainComponent],
   templateUrl: './quiz.component.html',
   styleUrl: './quiz.component.css'
 })

@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CurrentQuestion } from '../../../current-quiz.service';
+import { MainComponent } from "../main.component";
 
 
 @Component({
   selector: 'app-question',
   standalone: true,
-  imports: [],
+  imports: [MainComponent],
   templateUrl: './question.component.html',
   styleUrl: './question.component.css'
 })

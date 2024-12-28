@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Answer, Question, Quiz } from '../../../quiz-list.service';
 import { CreateQuizService } from '../../../create-quiz.service';
+import { MainComponent } from "../main.component";
 
 @Component({
   selector: 'create-quiz',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, MainComponent],
   templateUrl: './create-quiz.component.html',
   styleUrl: './create-quiz.component.css'
 })

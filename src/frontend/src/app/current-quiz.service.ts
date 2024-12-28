@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Question, Quiz, QuizListService } from './quiz-list.service';
+import { CreateQuizService } from './create-quiz.service';
 
 export interface CurrentAnswer {
   id: number;
@@ -43,6 +44,7 @@ export class CurrentQuizService {
   }
 
   public startQuiz(quizId: number): void {
+    inject(CreateQuizService).stopEditing();
     if (this.currentQuiz && this.currentQuiz.id === quizId) {
       return;
     }

@@ -1,92 +1,94 @@
-<div>
-    <table class="form-table">
-        <tr>
-            <td>
-                <label for="quiz-title">Quiz title</label>
-            </td>
-            <td>
-                <input type="text" id="quiz-title" [(ngModel)]="newQuiz.title"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="random-question-order">Random question order</label>
-            </td>
-            <td>
-                <input type="checkbox" id="random-question-order" [(ngModel)]="newQuiz.randomOrder">
-            </td>
-        </tr>
-    </table>
-        @for (question of newQuiz.questions; track question.id; let questionIdx = $index) {
-            <div class="card position-relative question">
-                <div class="card-body">
-                    <table class="form-table">
-                        <tr>
-                            <td>
-                                <label [attr.for]="'question-desc-' + questionIdx">Question description</label>
-                            </td>
-                            <td>
-                                <input type="text" [attr.id]="'question-desc-' + questionIdx" [(ngModel)]="question.description">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label [attr.for]="'random-answers-order-' + questionIdx">Random answers order</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" [attr.id]="'random-answers-order-' + questionIdx" [(ngModel)]="question.randomOrder">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label [attr.for]="'multiple-choice-' + questionIdx">Multiple choice</label>
-                            </td>
-                            <td>
-                                <input type="checkbox" [attr.id]="'multiple-choice-' + questionIdx" [(ngModel)]="question.multipleChoice">
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="card">
-                        <ul class="list-group list-group-flush position-relative">
-                            @for (answer of question.answers; track $index) {
+<app-main>
+    <div>
+        <table class="form-table">
+            <tr>
+                <td>
+                    <label for="quiz-title">Quiz title</label>
+                </td>
+                <td>
+                    <input type="text" id="quiz-title" [(ngModel)]="newQuiz.title"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="random-question-order">Random question order</label>
+                </td>
+                <td>
+                    <input type="checkbox" id="random-question-order" [(ngModel)]="newQuiz.randomOrder">
+                </td>
+            </tr>
+        </table>
+            @for (question of newQuiz.questions; track question.id; let questionIdx = $index) {
+                <div class="card position-relative question">
+                    <div class="card-body">
+                        <table class="form-table">
+                            <tr>
+                                <td>
+                                    <label [attr.for]="'question-desc-' + questionIdx">Question description</label>
+                                </td>
+                                <td>
+                                    <input type="text" [attr.id]="'question-desc-' + questionIdx" [(ngModel)]="question.description">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label [attr.for]="'random-answers-order-' + questionIdx">Random answers order</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" [attr.id]="'random-answers-order-' + questionIdx" [(ngModel)]="question.randomOrder">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label [attr.for]="'multiple-choice-' + questionIdx">Multiple choice</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" [attr.id]="'multiple-choice-' + questionIdx" [(ngModel)]="question.multipleChoice">
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="card">
+                            <ul class="list-group list-group-flush position-relative">
+                                @for (answer of question.answers; track $index) {
+                                    <li class="list-group-item">
+                                        <table class="form-table">
+                                            <tr>
+                                                <td>
+                                                    <label [attr.for]="'answer-desc-' + questionIdx + '-' + $index">Answer description</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" [attr.id]="'answer-desc-' + questionIdx + '-' + $index" [(ngModel)]="question.answers[$index].description">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label [attr.for]="'correct-answer-' + questionIdx + '-' + $index">Correct answer</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" [attr.id]="'correct-answer-' + questionIdx + '-' + $index" [(ngModel)]="answer.correct">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <button class="position-absolute top-0 end-0 btn btn-outline-danger" type="button" (click)="removeAnswer(questionIdx, $index)"><i class="bi bi-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                }
                                 <li class="list-group-item">
-                                    <table class="form-table">
-                                        <tr>
-                                            <td>
-                                                <label [attr.for]="'answer-desc-' + questionIdx + '-' + $index">Answer description</label>
-                                            </td>
-                                            <td>
-                                                <input type="text" [attr.id]="'answer-desc-' + questionIdx + '-' + $index" [(ngModel)]="question.answers[$index].description">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label [attr.for]="'correct-answer-' + questionIdx + '-' + $index">Correct answer</label>
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" [attr.id]="'correct-answer-' + questionIdx + '-' + $index" [(ngModel)]="answer.correct">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <button class="position-absolute top-0 end-0 btn btn-outline-danger" type="button" (click)="removeAnswer(questionIdx, $index)"><i class="bi bi-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <div>
+                                        <button class="btn btn-outline-secondary" type="button" (click)="addAnswer(questionIdx)"><i class="bi bi-plus-square"></i></button>
+                                    </div>
                                 </li>
-                            }
-                            <li class="list-group-item">
-                                <div>
-                                    <button class="btn btn-outline-secondary" type="button" (click)="addAnswer(questionIdx)"><i class="bi bi-plus-square"></i></button>
-                                </div>
-                            </li>
-                        </ul>
+                            </ul>
+                        </div>
+                        
+                        <br>
+                        <button class="position-absolute top-0 end-0 btn btn-outline-danger" type="button" (click)="removeQuestion(questionIdx)"><i class="bi bi-trash"></i></button>
                     </div>
-                    
-                    <br>
-                    <button class="position-absolute top-0 end-0 btn btn-outline-danger" type="button" (click)="removeQuestion(questionIdx)"><i class="bi bi-trash"></i></button>
                 </div>
-            </div>
-        }
-        <button class="btn btn-outline-primary " type="button" value="Add question" (click)="addQuestion()"><i class="bi bi-plus-square"></i></button>
-</div>
+            }
+            <button class="btn btn-outline-primary " type="button" value="Add question" (click)="addQuestion()"><i class="bi bi-plus-square"></i></button>
+    </div>
+</app-main>

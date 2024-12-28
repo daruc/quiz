@@ -1,15 +1,5 @@
 <main>
     <div id="main-body">
-        @switch (mode) {
-            @case ("Home") {
-                <quiz-selection [quizList]="getQuizList()" />
-            }
-            @case ("Quiz") {
-                <app-question [currentQuestion]="getCurrentQuestion()"/>
-            }
-            @case ("Create") {
-                <create-quiz />
-            }
-        }
+        <ng-content />
     </div>
 </main>

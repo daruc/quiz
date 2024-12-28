@@ -1,6 +1,6 @@
 <app-header headerText="Select quiz"/>
 <div id="main-aside-row">
-    <app-main [mode]="mode" [currentQuestionUrlId]="currentQuestionUrlId" />
+    <quiz-selection [quizList]="getQuizList()" />
     <app-home-aside />
 </div>
 <app-footer />

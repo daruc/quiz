@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Quiz, QuizListService } from './quiz-list.service';
+import { CurrentQuizService } from './current-quiz.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,18 @@ import { Quiz, QuizListService } from './quiz-list.service';
 export class CreateQuizService {
   private newQuiz?: Quiz = undefined;
 
-  constructor(private quizListService: QuizListService) {
+  constructor(private quizListService: QuizListService,
+              private currentQuizService: CurrentQuizService
+  ) {
     console.log('createQuizService constructor');
   }
   
   public startEditing(quizId?: number): void {
+    if (this.newQuiz !== undefined) {
+      this.stopEditing();
+    }
+    this.currentQuizService.stopQuiz();
+
     if (quizId === undefined) {
       this.startEditingNew();
     } else {
@@ -21,32 +29,30 @@ export class CreateQuizService {
 
   private startEditingNew(): void {
     console.log('start editing new');
-    if (this.newQuiz === undefined) {
-      this.newQuiz = {
-        id: this.quizListService.getQuizes().length,
-        title: '',
-        randomOrder: false,
-        questions: [
-          {
-            id: 0,
-            description: '',
-            randomOrder: false,
-            multipleChoice: false,
-            answers: [
-              {
-                id: 0,
-                description: '',
-                correct: false
-              },
-              {
-                id: 1,
-                description: '',
-                correct: false
-              }
-            ]
-          }
-        ],
-      }
+    this.newQuiz = {
+      id: this.quizListService.getQuizes().length,
+      title: '',
+      randomOrder: false,
+      questions: [
+        {
+          id: 0,
+          description: '',
+          randomOrder: false,
+          multipleChoice: false,
+          answers: [
+            {
+              id: 0,
+              description: '',
+              correct: false
+            },
+            {
+              id: 1,
+              description: '',
+              correct: false
+            }
+          ]
+        }
+      ],
     }
   }
 
