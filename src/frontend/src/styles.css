@@ -13,3 +13,13 @@ body {
     width: 1%;
     white-space: nowrap;
 }
+
+#main-aside-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#main-aside-row {
+    background-color: white; 
+}
