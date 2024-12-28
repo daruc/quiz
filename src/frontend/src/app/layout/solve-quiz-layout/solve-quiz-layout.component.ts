@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CreateQuizService } from '../../create-quiz.service';
 import { CurrentQuiz, CurrentQuizService } from '../../current-quiz.service';
-import { AsideComponent } from '../aside/aside.component';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { MainComponent } from '../main/main.component';
+import { SolveQuizAsideComponent } from '../aside/solve-quiz-aside/solve-quiz-aside.component';
 
 export enum Mode {
   Home = "Home",
@@ -19,7 +19,7 @@ export enum Mode {
   imports: [
     HeaderComponent,
     MainComponent, 
-    AsideComponent, 
+    SolveQuizAsideComponent, 
     FooterComponent
   ],
   templateUrl: './solve-quiz-layout.component.html',

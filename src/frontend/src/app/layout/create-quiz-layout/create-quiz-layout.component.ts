@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MainComponent } from '../main/main.component';
 import { CreateQuizService } from '../../create-quiz.service';
 import { CurrentQuiz, CurrentQuizService } from '../../current-quiz.service';
-import { AsideComponent } from '../aside/aside.component';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
+import { CreateQuizAsideComponent } from '../aside/create-quiz-aside/create-quiz-aside.component';
 
 export enum Mode {
   Home = "Home",
@@ -19,7 +19,7 @@ export enum Mode {
   imports: [
     HeaderComponent,
     MainComponent, 
-    AsideComponent, 
+    CreateQuizAsideComponent, 
     FooterComponent
   ],
   templateUrl: './create-quiz-layout.component.html',

@@ -1,36 +1,8 @@
 <aside>
-    @switch (mode) {
-        @case ("Home") {
             <div class="card aside-card">
-                <h5 class="card-header">Nothing has been started yet.</h5>
+                <h5 class="card-header">{{ asideTitle }}</h5>
                 <div class="card-body">
+                    <ng-content />
                 </div>
             </div>
-        }
-        @case ("Quiz") {
-            <div class="card aside-card">
-                <h5 class="card-header">Solving a quiz</h5>
-                <div class="card-body">
-                    <div>
-                        @for (item of getQuestionLabelList(); track $index) {
-                            <a routerLinkActive="current" class="square" [routerLink]="['/quiz', getCurrentQuizUrlId(), $index + 1]">
-                                {{ $index + 1 }}
-                            </a>
-                        }
-                    </div>
-                    <a routerLink="" (click)="finishQuiz()">Finish quiz</a><br>
-                    <a routerLink="">Go to quiz selection</a>
-                </div>
-            </div>
-        }
-        @case ("Create") {
-            <div class="card aside-card">
-                <h5 class="card-header">Quiz edition</h5>
-                <div class="card-body">
-                    <a routerLink="" (click)="saveNewQuiz()"><i class="bi bi-floppy"></i> Save and close</a><br>
-                    <a routerLink=""><i class="bi bi-door-closed"></i>Quit</a>
-                </div>
-            </div>
-        }
-    }
 </aside>
