@@ -21,10 +21,15 @@ export interface CurrentQuiz {
   currentQuestionList: CurrentQuestion[]
 }
 
+export interface AnswerResult {
+  id: number,
+  userSelected: boolean,
+  expectedSelection: boolean
+}
+
 export interface QuestionResult {
   id: number,
-  selectedCorrect: number,
-  maxCorrect: number
+  answerResultList: AnswerResult[];
 }
 
 export interface QuizResult {
@@ -118,15 +123,22 @@ export class CurrentQuizService {
         const question: Question = quiz.questions.find(question => question.id === currentQuestion.id)!;
         return {
           id: currentQuestion.id,
-          selectedCorrect: this.calculateSelectedCorrect(currentQuestion, question),
-          maxCorrect: this.calculateMaxCorrect(question)
-        }
+          answerResultList: currentQuestion.currentAnswerList.map(ca => {
+            return {
+              id: ca.id,
+              userSelected: ca.checked,
+              expectedSelection: question.answers.find(a => a.id === ca.id)!.correct
+            };
+          })
+        };
       });
 
-      return {
+      const result = {
         id: this.currentQuiz.id,
         questionResultList: questResultList
       }
+      console.log('rateEntire result=', result);
+      return result;
     }
 
     return {

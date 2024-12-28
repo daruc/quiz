@@ -1,0 +1,20 @@
+.question {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.answer-correct {
+    background-color: rgb(107, 179, 152);
+}
+
+.answer-wrong {
+    background-color: rgb(214, 136, 136);
+}
+
+.question-correct {
+    background-color: rgb(2, 172, 109);
+}
+
+.question-wrong {
+    background-color: rgb(206, 67, 67);
+}

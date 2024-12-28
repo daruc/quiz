@@ -1,0 +1,23 @@
+<div class="card question">
+    <div [class]="['card-header', getQuestionClass(question)]">
+        {{question.description}}
+        @if (isQuestionCorrect(question)) {
+            [Solved correctly]
+        } @else {
+            [Solved wrongly]
+        }
+    </div>
+    <ul class="list-group list-group-flush">
+        @for (answer of question.answerList; track answer.id) {
+            <li [class]="['list-group-item', getAnswerClass(answer)]">
+                {{answer.description}}
+                @if (answer.userSelected) {
+                    [Yours]
+                }
+                @if (answer.expectedSelection) {
+                    [Correct]
+                }
+            </li>
+        }
+    </ul>
+</div>

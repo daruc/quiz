@@ -32,14 +32,4 @@ export class SolveQuizAsideComponent {
   public getCurrentQuizUrlId() {
     return this.currentQuiz!.id + 1;
   }
-
-  public finishQuiz() {
-    let quizResultMsg = this.currentQuiz!.title + '\n'
-    const quizResult: QuizResult = this.currentQuizService.rateEntire();
-    const questionResultMsg = quizResult.questionResultList.map(questionResult => 
-      (questionResult.id + 1) + ': ' + questionResult.selectedCorrect + '/' + questionResult.maxCorrect
-    ).reduce((acc, cur) => acc + cur + '\n', '');
-    quizResultMsg += questionResultMsg;
-    window.alert(quizResultMsg);
-  }
 }

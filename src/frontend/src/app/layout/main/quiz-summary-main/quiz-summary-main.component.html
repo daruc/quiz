@@ -1,0 +1,9 @@
+<app-main>
+    <h5>Score: {{statSummary.scorePercent}}%</h5>
+    Correct questions: {{statSummary.actualCorrectQuestions}}<br>
+    All questions: {{statSummary.expectedCorrectQuestions}}
+    <hr>
+    @for (questionSummary of quizSummary.questionList; track questionSummary.id) {
+        <app-question-card [question]="questionSummary" />
+    }
+</app-main>
