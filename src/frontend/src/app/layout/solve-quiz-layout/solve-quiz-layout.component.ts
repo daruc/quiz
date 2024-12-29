@@ -37,12 +37,15 @@ export class SolveQuizLayoutComponent {
   }
 
   public getCurrentQuizTitle(): string {
-    return this.currentQuizService.getCurrentQuiz()!.title;
-  
+    const currentQuiz = this.currentQuizService.getCurrentQuiz();
+    if (currentQuiz) {
+      return currentQuiz.title;
+    }
+    return '';
   }
 
-  public getCurrentQuestion(): CurrentQuestion {
-    return this.currentQuizService.getCurrentQuiz()!.currentQuestionList[this.currentQuestionUrlId-1];
+  public getCurrentQuestion(): CurrentQuestion | undefined {
+    return this.currentQuizService.getCurrentQuiz()?.currentQuestionList[this.currentQuestionUrlId-1];
   }
 
   public getCurrentQuiz(): CurrentQuiz {

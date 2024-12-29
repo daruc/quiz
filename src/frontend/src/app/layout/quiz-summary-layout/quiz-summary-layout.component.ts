@@ -3,7 +3,7 @@ import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import { QuizSummary, QuizSummaryMainComponent } from "../main/quiz-summary-main/quiz-summary-main.component";
 import { QuizSummaryAsideComponent } from "../aside/quiz-summary-aside/quiz-summary-aside.component";
-import { CurrentQuizService, QuestionResult, QuizResult } from '../../current-quiz.service';
+import { AnswerResult, CurrentQuizService, QuestionResult, QuizResult } from '../../current-quiz.service';
 import { Answer, Question, Quiz, QuizListService } from '../../quiz-list.service';
 import { AnswerCardData, QuestionCardData } from '../main/question-card/question-card.component';
 
@@ -47,15 +47,22 @@ export class QuizSummaryLayoutComponent {
     return {
       id: question.id,
       description: question.description,
-      answerList: question.answers.map(a => this.buildAnswerCardData(a))
+      answerList: question.answers
+        .map(a => {
+          return {
+            a: a,
+            ar: questionResult.answerResultList.find(qr => qr.id === a.id)!
+          }
+        })
+        .map(({a, ar}) => this.buildAnswerCardData(a, ar))
     }
   }
 
-  private buildAnswerCardData(answer: Answer): AnswerCardData {
+  private buildAnswerCardData(answer: Answer, answerResult: AnswerResult): AnswerCardData {
     return {
       id: answer.id,
       description: answer.description,
-      userSelected: false,
+      userSelected: answerResult.userSelected,
       expectedSelection: answer.correct
     }
   }

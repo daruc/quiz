@@ -46,6 +46,7 @@ export class QuizListService {
   }
 
   public saveQuiz(newQuiz: Quiz): void {
+    this.fixBooleanStrings(newQuiz);
     if (newQuiz.id >= this.quizes.length) {
       this.quizes.push(newQuiz);
       this.httpClient.post('/api/quiz', newQuiz).subscribe(response => {
@@ -57,6 +58,17 @@ export class QuizListService {
     this.httpClient.put('/api/quiz', newQuiz).subscribe(response => {
       console.log('http client saveQuiz() edit response:', response);
     });
+  }
+
+  private fixBooleanStrings(newQuiz: Quiz): void {
+    for (const question of newQuiz.questions) {
+      for (const answer of question.answers) {
+        if (typeof answer.correct === 'string') {
+          console.log('fixBooleanStrings', answer.correct);
+          answer.correct = (answer.correct as unknown as string).toLowerCase() === 'true';
+        }
+      }
+    }
   }
 
   public removeQuiz(quizId: number): void {

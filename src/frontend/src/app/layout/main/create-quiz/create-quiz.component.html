@@ -65,7 +65,7 @@
                                                     <label [attr.for]="'correct-answer-' + questionIdx + '-' + $index">Correct answer</label>
                                                 </td>
                                                 <td>
-                                                    <input [type]="question.multipleChoice ? 'checkbox' : 'radio'" [attr.id]="'correct-answer-' + questionIdx + '-' + $index" [(ngModel)]="answer.correct" [attr.name]="'correct-answer-' + questionIdx">
+                                                    <input type="checkbox" [attr.id]="'correct-answer-' + questionIdx + '-' + $index" [(ngModel)]="answer.correct" [attr.name]="'correct-answer-' + questionIdx">
                                                 </td>
                                             </tr>
                                             <tr>

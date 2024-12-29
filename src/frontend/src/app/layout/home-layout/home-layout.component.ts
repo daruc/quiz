@@ -4,6 +4,8 @@ import { HeaderComponent } from '../header/header.component';
 import { HomeAsideComponent } from '../aside/home-aside/home-aside.component';
 import { QuizComponent } from "../main/quiz/quiz.component";
 import { QuizListService } from '../../quiz-list.service';
+import { CurrentQuizService } from '../../current-quiz.service';
+import { CreateQuizService } from '../../create-quiz.service';
 
 @Component({
   selector: 'app-home-layout',
@@ -18,7 +20,12 @@ import { QuizListService } from '../../quiz-list.service';
   styleUrl: './home-layout.component.css'
 })
 export class HomeLayoutComponent {
-  constructor(private quizListService: QuizListService) {
+  constructor(private quizListService: QuizListService,
+              private currentQuizService: CurrentQuizService,
+              private createQuizService: CreateQuizService
+  ) {
+    this.currentQuizService.stopQuiz();
+    this.createQuizService.stopEditing();
   }
 
   public getQuizList(): string[] {

@@ -23,7 +23,7 @@ export class SolveQuizAsideComponent {
 
   public getQuestionLabelList(): string[] {
     const labels: string[] = [];
-    for (let i = 1; i <= this.currentQuiz!.currentQuestionList.length; ++i) {
+    for (let i = 1; this.currentQuiz && i <= this.currentQuiz.currentQuestionList.length; ++i) {
       labels.push(i.toString());
     }
     return labels;

@@ -1,6 +1,6 @@
 <app-header [headerText]="getCurrentQuizTitle()"/>
 <div id="main-aside-row">
-    <app-question [currentQuestion]="getCurrentQuestion()"/>
+    <app-question [currentQuestion]="getCurrentQuestion()" [currentQuiz]="getCurrentQuiz()"/>
     <app-solve-quiz-aside [currentQuiz]="getCurrentQuiz()" />
 </div>
 <app-footer />
