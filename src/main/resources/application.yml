@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: quiz
+  liquibase:
+    change-log: classpath:config/liquibase/master.xml
+    enabled: true
+    contexts: production,staging
+    liquibase-schema: public
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl_auto: none
+  datasource:
+    url: jdbc:postgresql://localhost:5432/quiz_db?public
+    username: quiz_back_end
+    password: quiz_back_end_password
+    driverClassName: org.postgresql.Driver
+    initialization-mode: always
+logging:
+  level:
+    liquibase: DEBUG

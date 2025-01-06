@@ -28,7 +28,12 @@ export class HomeLayoutComponent {
     this.createQuizService.stopEditing();
   }
 
-  public getQuizList(): string[] {
-    return this.quizListService.getQuizes().map(quiz => quiz.title);
+  public getQuizList(): {id: number, title: string}[] {
+    return this.quizListService.getQuizes().map(quiz => {
+      return {
+        id: quiz.id,
+        title: quiz.title
+      }
+    });
   }
 }

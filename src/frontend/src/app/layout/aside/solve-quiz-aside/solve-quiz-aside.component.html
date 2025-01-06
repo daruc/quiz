@@ -1,7 +1,7 @@
 <app-aside asideTitle="Solving a quiz">
     <div>
         @for (item of getQuestionLabelList(); track $index) {
-            <a routerLinkActive="current" class="square" [routerLink]="['/quiz', getCurrentQuizUrlId(), $index + 1]">
+            <a routerLinkActive="current" class="square" [routerLink]="['/quiz', getCurrentQuizId(), $index + 1]">
                 {{ $index + 1 }}
             </a>
         }

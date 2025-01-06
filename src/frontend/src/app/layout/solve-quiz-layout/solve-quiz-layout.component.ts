@@ -30,7 +30,7 @@ export class SolveQuizLayoutComponent {
       this.currentQuestionUrlId = +url[2];
       this.currentQuiz = this.currentQuizService.getCurrentQuiz();
       if (this.currentQuiz === undefined) {
-        this.currentQuizService.startQuiz(quizUrlId - 1);
+        this.currentQuizService.startQuiz(quizUrlId);
         this.currentQuiz = this.currentQuizService.getCurrentQuiz();
       }
     });
@@ -45,7 +45,7 @@ export class SolveQuizLayoutComponent {
   }
 
   public getCurrentQuestion(): CurrentQuestion | undefined {
-    return this.currentQuizService.getCurrentQuiz()?.currentQuestionList[this.currentQuestionUrlId-1];
+    return this.currentQuizService.getCurrentQuiz()?.currentQuestionList[this.currentQuestionUrlId - 1];
   }
 
   public getCurrentQuiz(): CurrentQuiz {

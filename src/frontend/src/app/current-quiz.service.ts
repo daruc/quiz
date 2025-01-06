@@ -56,11 +56,13 @@ export class CurrentQuizService {
 
     console.log('start quiz', quizId);
     const quiz : Quiz = this.quizListService.getQuiz(quizId);
+    console.log('startQuiz() get quiz', quiz);
     this.currentQuiz = {
       id: quizId,
       title: quiz.title,
       currentQuestionList: this.createCurrentQuestionList(quiz)
-    }
+    };
+    console.log('start quiz(), currentQuiz', this.currentQuiz);
   }
 
   public stopQuiz() {
@@ -94,22 +96,23 @@ export class CurrentQuizService {
   }
 
   private createCurrentAnswerList(question: Question): CurrentAnswer[] {
-    const currentAswerList = question.answers.map((answer, index) => this.createCurrentAnswer(index, answer.description));
+    const currentAswerList = question.answers.map(answer => this.createCurrentAnswer(answer.id, answer.description));
     if (question.randomOrder) {
       return this.shuffleArray(currentAswerList);
     }
     return currentAswerList;
   }
 
-  private createCurrentAnswer(index: number, answerStr: string): CurrentAnswer {
+  private createCurrentAnswer(answerId: number, answerStr: string): CurrentAnswer {
     return {
-      id: index,
+      id: answerId,
       str: answerStr,
       checked: false
     }
   }
 
   public getCurrentQuiz(): CurrentQuiz | undefined {
+    console.log('get current quiz', this.currentQuiz)
     return this.currentQuiz;
   }
 

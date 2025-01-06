@@ -30,11 +30,37 @@ export class QuizListService {
   private quizes: Quiz[] = [];
 
   constructor(private httpClient: HttpClient) { 
-    httpClient.get<Quiz[]>('/api/quiz').subscribe(response => {
+    this.loadQuizesFromServer();
+  }
+
+  private loadQuizesFromServer(): void {
+    /*this.httpClient.get<Quiz[]>('/api/quiz').subscribe(response => {
       console.log('http client response:', response);
       this.quizes = response;
     });
-  
+    */
+    const testAnswer: Answer = {
+      id: 555,
+      description: 'ans',
+      correct: true
+    }
+
+    const testQuestion: Question = {
+      id: 55,
+      description: 'desc',
+      randomOrder: true,
+      multipleChoice: true,
+      answers: [testAnswer]
+    }
+
+    const testQuiz: Quiz = {
+      id: 5,
+      title: 'test_quiz',
+      randomOrder: true,
+      questions: [testQuestion]
+    }
+    this.quizes = [testQuiz]
+    
   }
 
   public getQuizes(): Quiz[] {
@@ -42,7 +68,7 @@ export class QuizListService {
   }
 
   public getQuiz(quizId: number): Quiz {
-    return this.quizes[quizId];
+    return this.quizes.find(quiz => quiz.id === quizId)!;
   }
 
   public saveQuiz(newQuiz: Quiz): void {
@@ -51,12 +77,12 @@ export class QuizListService {
       this.quizes.push(newQuiz);
       this.httpClient.post('/api/quiz', newQuiz).subscribe(response => {
         console.log('http client saveQuiz() new response:', response);
+        this.loadQuizesFromServer();
       });
     }
-    const indexToReplace: number = this.quizes.findIndex(quiz => quiz.id === newQuiz.id);
-    this.quizes.splice(indexToReplace, 1, newQuiz);
     this.httpClient.put('/api/quiz', newQuiz).subscribe(response => {
       console.log('http client saveQuiz() edit response:', response);
+      this.loadQuizesFromServer();
     });
   }
 
@@ -72,10 +98,9 @@ export class QuizListService {
   }
 
   public removeQuiz(quizId: number): void {
-    const indexToRemove: number = this.quizes.findIndex(quiz => quiz.id === quizId);
-    this.quizes.splice(indexToRemove, 1);
-    this.httpClient.delete('/api/quiz/' + (quizId + 1)).subscribe(response => {
+    this.httpClient.delete('/api/quiz/' + quizId).subscribe(response => {
       console.log('http client removeQuiz() response:', response);
+      this.loadQuizesFromServer();
     });
   }
 }

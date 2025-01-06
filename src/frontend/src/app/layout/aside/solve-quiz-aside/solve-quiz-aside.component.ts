@@ -29,7 +29,7 @@ export class SolveQuizAsideComponent {
     return labels;
   }
 
-  public getCurrentQuizUrlId() {
-    return this.currentQuiz!.id + 1;
+  public getCurrentQuizId() {
+    return this.currentQuiz!.id;
   }
 }

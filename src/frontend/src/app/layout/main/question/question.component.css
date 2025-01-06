@@ -1,0 +1,12 @@
+.left-right-nav button {
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 150px;
+}
+
+
+.left-right-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

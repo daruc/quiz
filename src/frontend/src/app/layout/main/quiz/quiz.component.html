@@ -3,15 +3,15 @@
     <hr>
     Select quiz
     <table class="form-table">
-        @for(quiz of quizList; track $index) {
+        @for(quiz of quizList; track quiz.id) {
             <tr>
                 <td>
-                    <a [routerLink]="['/quiz', $index + 1, 1]">{{ quiz }}</a>
+                    <a [routerLink]="['/quiz', quiz.id, 1]">{{ quiz.title }}</a>
                 </td>
                 <td>
                     <div>
-                        <a [routerLink]="['/edit', $index + 1]"><i class="bi bi-pencil-square"></i></a>
-                        <a routerLink="" (click)="removeQuiz($index)"><i class="bi bi-trash3"></i></a>
+                        <a [routerLink]="['/edit', quiz.id]"><i class="bi bi-pencil-square"></i></a>
+                        <a routerLink="" (click)="removeQuiz(quiz.id)"><i class="bi bi-trash3"></i></a>
                     </div>
                 </td>
             </tr>

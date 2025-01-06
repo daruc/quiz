@@ -27,7 +27,7 @@ export class CreateQuizLayoutComponent {
 
     this.route.url.subscribe(url => {
         if (url[0].path === 'edit') {
-          const quizId: number = +url[1].path - 1;
+          const quizId: number = +url[1].path;
           createQuizService.startEditing(quizId);
         } else if (url[0].path === 'create') {
           createQuizService.startEditing();
