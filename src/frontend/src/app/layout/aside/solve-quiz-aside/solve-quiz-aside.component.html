@@ -1,4 +1,5 @@
 <app-aside asideTitle="Solving a quiz">
+    <p>Time left: {{ getTimeLeft() }}</p>
     <div>
         @for (item of getQuestionLabelList(); track $index) {
             <a routerLinkActive="current" class="square" [routerLink]="['/quiz', getCurrentQuizId(), $index + 1]">
