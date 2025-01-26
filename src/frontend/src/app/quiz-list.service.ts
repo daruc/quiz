@@ -19,6 +19,7 @@ export interface Quiz {
   id: number;
   title: string;
   randomOrder: boolean;
+  timeLimitSec: number;
   questions: Question[];
 }
 
@@ -37,8 +38,8 @@ export class QuizListService {
     /*this.httpClient.get<Quiz[]>('/api/quiz').subscribe(response => {
       console.log('http client response:', response);
       this.quizes = response;
-    });
-    */
+    });*/
+    
     const testAnswer: Answer = {
       id: 555,
       description: 'ans',
@@ -57,10 +58,10 @@ export class QuizListService {
       id: 5,
       title: 'test_quiz',
       randomOrder: true,
+      timeLimitSec: 75,
       questions: [testQuestion]
     }
     this.quizes = [testQuiz]
-    
   }
 
   public getQuizes(): Quiz[] {

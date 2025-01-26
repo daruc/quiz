@@ -14,6 +14,8 @@ public class QuizEntity {
     @Column
     private String title;
     @Column
+    private int timeLimitSec;
+    @Column
     private boolean randomOrder;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "quiz_id", referencedColumnName = "id", nullable = false)
@@ -41,6 +43,14 @@ public class QuizEntity {
 
     public void setRandomOrder(boolean randomOrder) {
         this.randomOrder = randomOrder;
+    }
+
+    public int getTimeLimitSec() {
+        return timeLimitSec;
+    }
+
+    public void setTimeLimitSec(int timeLimitSec) {
+        this.timeLimitSec = timeLimitSec;
     }
 
     public Set<QuestionEntity> getQuestionSet() {

@@ -33,6 +33,7 @@ export class CreateQuizService {
       id: this.quizListService.getQuizes().length,
       title: '',
       randomOrder: false,
+      timeLimitSec: 0,
       questions: [
         {
           id: 0,

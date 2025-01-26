@@ -27,9 +27,10 @@ public class QuizController {
         int id = entity.getId();
         String title = entity.getTitle();
         boolean randomOrder = entity.isRandomOrder();
+        int timeLimitSec = entity.getTimeLimitSec();
         QuestionDto[] questionArray = entity.getQuestionSet().stream().map(QuizController::toQuestionDto)
                 .toArray(QuestionDto[]::new);
-        return new QuizDto(id, title, randomOrder, questionArray);
+        return new QuizDto(id, title, randomOrder, timeLimitSec, questionArray);
     }
 
     private static QuestionDto toQuestionDto(QuestionEntity entity) {
@@ -56,9 +57,10 @@ public class QuizController {
 
     private static QuizEntity toQuizEntity(QuizDto dto) {
         var entity = new QuizEntity();
-        //entity.setId(dto.id());
+        entity.setId(dto.id());
         entity.setTitle(dto.title());
         entity.setRandomOrder(dto.randomOrder());
+        entity.setTimeLimitSec(dto.timeLimitSec());
         Set<QuestionEntity> questionSet = Arrays.stream(dto.questions()).map(QuizController::toQuestionEntity)
                 .collect(Collectors.toSet());
         entity.setQuestionSet(questionSet);

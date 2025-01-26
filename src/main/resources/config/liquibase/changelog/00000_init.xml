@@ -78,4 +78,19 @@
         <createSequence sequenceName="answer_seq" startValue="1"/>
     </changeSet>
 
+    <changeSet id="6" author="daruc">
+        <addColumn tableName="quiz">
+            <column name="time_limit_sec" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="7" author="daruc">
+        <addNotNullConstraint
+                tableName="quiz"
+                columnName="time_limit_sec"
+                columnDataType="int"/>
+    </changeSet>
+
 </databaseChangeLog>

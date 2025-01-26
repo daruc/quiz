@@ -18,7 +18,8 @@ export interface CurrentQuestion {
 export interface CurrentQuiz {
   id: number;
   title: string;
-  currentQuestionList: CurrentQuestion[]
+  timeLeftSec: number;
+  currentQuestionList: CurrentQuestion[];
 }
 
 export interface AnswerResult {
@@ -60,6 +61,7 @@ export class CurrentQuizService {
     this.currentQuiz = {
       id: quizId,
       title: quiz.title,
+      timeLeftSec: quiz.timeLimitSec,
       currentQuestionList: this.createCurrentQuestionList(quiz)
     };
     console.log('start quiz(), currentQuiz', this.currentQuiz);

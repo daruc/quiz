@@ -14,7 +14,15 @@
                     <label for="random-question-order">Random question order</label>
                 </td>
                 <td>
-                    <input type="checkbox" id="random-question-order" [(ngModel)]="newQuiz.randomOrder">
+                    <input type="checkbox" id="random-question-order" [(ngModel)]="newQuiz.randomOrder" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="quiz-time-limit-sec">Time limit (s)</label>
+                </td>
+                <td>
+                    <input type="text" id="quiz-time-limit-sec" [(ngModel)]="newQuiz.timeLimitSec"/>
                 </td>
             </tr>
         </table>
