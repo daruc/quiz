@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Answer, Question, Quiz } from '../../../quiz-list.service';
 import { CreateQuizService } from '../../../create-quiz.service';
@@ -13,9 +13,21 @@ import { MainComponent } from "../main.component";
 })
 export class CreateQuizComponent {
   newQuiz: Quiz;
+  timeLimitEnabled = signal<boolean>(false);
+  timeLimitH = signal<number>(0);
+  timeLimitMin = signal<number>(0);
+  timeLimitSec = signal<number>(0);
   
   constructor(private createQuizService: CreateQuizService) {
     this.newQuiz = createQuizService.getQuiz();
+      effect(() => {
+        if (this.timeLimitEnabled()) {
+          this.newQuiz.timeLimitSec = this.timeLimitH() * 60 * 60 + this.timeLimitMin() * 60 + +this.timeLimitSec();
+        } else {
+          this.newQuiz.timeLimitSec = 0;
+        }
+        console.log(this.newQuiz.timeLimitSec);
+      });
   }
 
   public addQuestion(): void {
@@ -51,3 +63,4 @@ export class CreateQuizComponent {
     answers.splice(answerId, 1);
   }
 }
+

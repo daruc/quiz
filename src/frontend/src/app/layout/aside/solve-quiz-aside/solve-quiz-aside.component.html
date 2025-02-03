@@ -1,5 +1,9 @@
 <app-aside asideTitle="Solving a quiz">
-    <p>Time left: {{ getTimeLeft() }}</p>
+    @if (isTimeLimit()) {
+        <p>Time left: {{ getTimeLeft() }}</p>
+    } @else {
+        <p>Without time limit</p>
+    }
     <div>
         @for (item of getQuestionLabelList(); track $index) {
             <a routerLinkActive="current" class="square" [routerLink]="['/quiz', getCurrentQuizId(), $index + 1]">

@@ -11,3 +11,11 @@
     width: 1%;
     white-space: nowrap;
 }
+
+.time-limit-form > * {
+    margin-right: 5px;
+}
+
+.time-limit-form > input {
+    width: 40px;
+}

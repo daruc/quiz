@@ -70,4 +70,8 @@ export class SolveQuizAsideComponent implements OnChanges {
   public getTimeLeft(): string {
     return this.timeLeft;
   }
+
+  public isTimeLimit(): boolean {
+    return this.currentQuiz?.timeLeftSec === 0;
+  }
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CreateQuizService } from '../../create-quiz.service';
-import { CurrentQuiz, CurrentQuizService } from '../../current-quiz.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { CreateQuizAsideComponent } from '../aside/create-quiz-aside/create-quiz-aside.component';

@@ -19,12 +19,29 @@
             </tr>
             <tr>
                 <td>
-                    <label for="quiz-time-limit-sec">Time limit (s)</label>
+                    <label for="quiz-time-limit-enabled">Time limited</label>
                 </td>
                 <td>
-                    <input type="text" id="quiz-time-limit-sec" [(ngModel)]="newQuiz.timeLimitSec"/>
+                    <input type="checkbox" id="quiz-time-limit-enabled" [(ngModel)]="timeLimitEnabled" />
                 </td>
             </tr>
+            @if (timeLimitEnabled()) {
+                <tr>
+                    <td>
+                        <label for="quiz-time-limit-sec">Time limit</label>
+                    </td>
+                    <td>
+                        <div class="time-limit-form">
+                            <input type="text" id="quiz-time-limit-h" [(ngModel)]="timeLimitH"/>
+                            <label for="quiz-time-limit-h">h</label>
+                            <input type="text" id="quiz-time-limit-min" [(ngModel)]="timeLimitMin"/>
+                            <label for="quiz-time-limit-sec">min</label>
+                            <input type="text" id="quiz-time-limit-sec" [(ngModel)]="timeLimitSec"/>
+                            <label for="quiz-time-limit-sec">sec</label>
+                        </div>
+                    </td>
+                </tr>
+            }
         </table>
             @for (question of newQuiz.questions; track question.id; let questionIdx = $index) {
                 <div class="card position-relative question">
