@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MainComponent } from "../main.component";
-import { AnswerCardData, QuestionCardComponent, QuestionCardData } from "../question-card/question-card.component";
+import { QuestionCardComponent, QuestionCardData } from "../question-card/question-card.component";
 
 export interface StatSummary {
   actualCorrectQuestions: number;

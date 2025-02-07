@@ -1,7 +1,6 @@
-import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AsideComponent } from '../aside.component';
-import { CurrentQuiz, CurrentQuizService, QuizResult } from '../../../current-quiz.service';
-import { CreateQuizService } from '../../../create-quiz.service';
+import { CurrentQuiz } from '../../../current-quiz.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -17,10 +16,7 @@ export class SolveQuizAsideComponent implements OnChanges {
   timeLeft: string = '';
   interval;
 
-  constructor(private currentQuizService: CurrentQuizService,
-    private createQuizService: CreateQuizService,
-    private router: Router) {
-
+  constructor(private router: Router) {
     this.startDate = Date.now();
     this.initTimeLeft();
     this.interval = setInterval(() => this.refreshTimeLeft(), 1000);
@@ -32,7 +28,7 @@ export class SolveQuizAsideComponent implements OnChanges {
 
   private initTimeLeft(): void {
     console.log('initTimeLeft');
-    if (this.currentQuiz) {
+    if (this.currentQuiz && this.isTimeLimit()) {
       const timeLeftMs: number = this.currentQuiz.timeLeftSec * 1000;
       const timeLeftSec: number = Math.round(timeLeftMs / 1000);
       const timeLeftMin: number = Math.floor(timeLeftSec / 60);
@@ -42,16 +38,21 @@ export class SolveQuizAsideComponent implements OnChanges {
   }
 
   private refreshTimeLeft(): void {
-    if (this.currentQuiz) {
+    if (this.currentQuiz && this.isTimeLimit()) {
       const timeLeftMs: number = this.startDate + this.currentQuiz.timeLeftSec * 1000 - Date.now();
       const timeLeftSec: number = Math.round(timeLeftMs / 1000);
       const timeLeftMin: number = Math.floor(timeLeftSec / 60);
       const timeLeftSecRemainder: number = timeLeftSec - timeLeftMin * 60;
+      console.log('timeLeftMin=', timeLeftMin);
+      console.log('timeLeftSecRemainder=', timeLeftSecRemainder);
       if (timeLeftMin <= 0 && timeLeftSecRemainder <= 0) {
         clearInterval(this.interval);
+        console.log('clearInterval');
         this.router.navigate(['/summary']);
       }
       this.timeLeft = `${timeLeftMin}m ${timeLeftSecRemainder}s`;
+    } else {
+      clearInterval(this.interval);
     }
   }
 
@@ -72,6 +73,9 @@ export class SolveQuizAsideComponent implements OnChanges {
   }
 
   public isTimeLimit(): boolean {
-    return this.currentQuiz?.timeLeftSec === 0;
+    if (this.currentQuiz) {
+      return this.currentQuiz.timeLeftSec > 0;
+    }
+    return false;
   }
 }

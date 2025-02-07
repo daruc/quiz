@@ -58,7 +58,7 @@ export class QuizListService {
       id: 5,
       title: 'test_quiz',
       randomOrder: true,
-      timeLimitSec: 75,
+      timeLimitSec: 15,
       questions: [testQuestion]
     }
     this.quizes = [testQuiz]
